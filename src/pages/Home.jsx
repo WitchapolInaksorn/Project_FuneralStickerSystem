@@ -8,6 +8,7 @@ function Home() {
   const [name, setName] = useState("ชื่อผู้เสียชีวิต");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [uploadedImage, setUploadedImage] = useState(null);
+  const [pattern, setPattern] = useState("5x15");
 
   const formatThaiDate = (dateString) => {
     if (!dateString) return "";
@@ -151,6 +152,43 @@ function Home() {
                 </p>
               </div>
 
+              {/* PATTERN */}
+              <div>
+                <h3 className="text-sm font-semibold text-[#3f3424] mb-3">
+                  รูปแบบการจัดเรียง
+                </h3>
+
+                <div className="grid grid-cols-3 gap-3">
+                  {[
+                    { label: "5 × 15", value: "5x15" },
+                    { label: "4 × 15", value: "4x15" },
+                    { label: "5 × 20", value: "5x20" },
+                  ].map((item) => (
+                    <button
+                      key={item.value}
+                      onClick={() => setPattern(item.value)}
+                      className={`
+          rounded-xl
+          border
+          px-4
+          py-3
+          text-sm
+          font-medium
+          transition
+
+          ${
+            pattern === item.value
+              ? "bg-[#c9a84c] text-white border-[#c9a84c]"
+              : "bg-white text-[#5e513d] border-[#dccfb6] hover:bg-[#f8f3e8]"
+          }
+        `}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               <Toolbar />
             </div>
           </div>
@@ -191,6 +229,7 @@ function Home() {
                   name={name}
                   date={formatThaiDate(date)}
                   uploadedImage={uploadedImage}
+                  pattern={pattern}
                 />
               </div>
             </div>
