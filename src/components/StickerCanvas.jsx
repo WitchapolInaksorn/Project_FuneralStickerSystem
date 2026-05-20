@@ -36,6 +36,7 @@ function StickerCanvas({ name, date, pattern }) {
           display: "grid",
           gridTemplateColumns: `repeat(${current.cols}, 1fr)`,
           width: `${A4_W}px`,
+          height: `${A4_H}px`,
         }}
       >
         {Array.from({ length: total }).map((_, i) => (
