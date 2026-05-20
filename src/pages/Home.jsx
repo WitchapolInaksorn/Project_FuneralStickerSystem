@@ -8,7 +8,7 @@ function Home() {
   const [name, setName] = useState("ชื่อผู้เสียชีวิต");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [uploadedImage, setUploadedImage] = useState(null);
-  const [pattern, setPattern] = useState("5x15");
+  const [pattern, setPattern] = useState("4x15");
 
   const formatThaiDate = (dateString) => {
     if (!dateString) return "";
