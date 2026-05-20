@@ -160,8 +160,8 @@ function Home() {
 
                 <div className="grid grid-cols-3 gap-3">
                   {[
-                    { label: "5 × 15", value: "5x15" },
                     { label: "4 × 15", value: "4x15" },
+                    { label: "5 × 15", value: "5x15" },
                     { label: "5 × 20", value: "5x20" },
                   ].map((item) => (
                     <button
