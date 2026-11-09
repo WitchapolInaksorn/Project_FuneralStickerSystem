@@ -3,6 +3,7 @@ import { useState } from "react";
 import StickerCanvas from "../components/StickerCanvas";
 import TextEditor from "../components/TextEditor";
 import Toolbar from "../components/Toolbar";
+import ColorPicker from "../components/ColorPicker";
 
 function Home() {
   const [name, setName] = useState("ชื่อผู้เสียชีวิต");
@@ -13,6 +14,8 @@ function Home() {
   const [mode, setMode] = useState("default");
   const [line1, setLine1] = useState("แทนคำขอบคุณ");
   const [line2, setLine2] = useState("ชื่อผู้เสียชีวิต");
+
+  const [frameColor, setFrameColor] = useState(null);
 
   const formatThaiDate = (dateString) => {
     if (!dateString) return "";
@@ -221,6 +224,8 @@ function Home() {
                 </div>
               </div>
 
+              <ColorPicker value={frameColor} onChange={setFrameColor} />
+
               <Toolbar />
             </div>
           </div>
@@ -264,6 +269,7 @@ function Home() {
                   mode={mode}
                   line1={line1}
                   line2={line2}
+                  frameColor={frameColor}
                 />
               </div>
             </div>

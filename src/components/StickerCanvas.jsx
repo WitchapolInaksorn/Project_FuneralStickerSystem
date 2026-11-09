@@ -1,6 +1,15 @@
 import template from "../templates/funeral-template.png";
+import useTintedTemplate from "../hooks/useTintedTemplate";
 
-function StickerCanvas({ name, date, pattern, mode, line1, line2 }) {
+function StickerCanvas({
+  name,
+  date,
+  pattern,
+  mode,
+  line1,
+  line2,
+  frameColor,
+}) {
   const A4_W = 794;
   const A4_H = 1123;
 
@@ -25,6 +34,8 @@ function StickerCanvas({ name, date, pattern, mode, line1, line2 }) {
   const lines = isTwoLine
     ? [line1, line2]
     : ["ที่ระลึกงานฌาปนกิจศพ", name, date];
+
+  const frameSrc = useTintedTemplate(template, frameColor);
 
   return (
     <div
@@ -54,7 +65,7 @@ function StickerCanvas({ name, date, pattern, mode, line1, line2 }) {
             }}
           >
             <img
-              src={template}
+              src={frameSrc}
               alt=""
               style={{
                 width: "100%",
