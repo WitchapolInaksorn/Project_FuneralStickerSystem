@@ -1,6 +1,6 @@
 import template from "../templates/funeral-template.png";
 
-function StickerCanvas({ name, date, pattern }) {
+function StickerCanvas({ name, date, pattern, mode, line1, line2 }) {
   const A4_W = 794;
   const A4_H = 1123;
 
@@ -20,6 +20,11 @@ function StickerCanvas({ name, date, pattern }) {
   const scale = Math.sqrt(cellArea / refArea);
   const fontSize = `${Math.min(13, Math.max(8, Math.round(12 * scale)))}px`;
   const lineH = cellH < 55 ? "1.1" : "1.25";
+
+  const isTwoLine = mode === "twoLine";
+  const lines = isTwoLine
+    ? [line1, line2]
+    : ["ที่ระลึกงานฌาปนกิจศพ", name, date];
 
   return (
     <div
@@ -65,18 +70,22 @@ function StickerCanvas({ name, date, pattern }) {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                justifyContent: "flex-start",
+                justifyContent: isTwoLine ? "center" : "flex-start",
+                gap: isTwoLine ? `${cellH * 0.04}px` : 0,
                 textAlign: "center",
-                paddingTop: `${cellH * 0.12}px`,
+                paddingTop: isTwoLine ? 0 : `${cellH * 0.12}px`,
+                paddingBottom: isTwoLine ? `${cellH * 0.14}px` : 0,
                 paddingLeft: "4px",
                 paddingRight: "4px",
-                lineHeight: lineH,
+                lineHeight: isTwoLine ? "1.3" : lineH,
               }}
               className="font-charmonman font-semibold"
             >
-              <p style={{ fontSize, margin: 0 }}>ที่ระลึกงานฌาปนกิจศพ</p>
-              <p style={{ fontSize, margin: 0 }}>{name}</p>
-              <p style={{ fontSize, margin: 0 }}>{date}</p>
+              {lines.map((text, idx) => (
+                <p key={idx} style={{ fontSize, margin: 0 }}>
+                  {text}
+                </p>
+              ))}
             </div>
           </div>
         ))}

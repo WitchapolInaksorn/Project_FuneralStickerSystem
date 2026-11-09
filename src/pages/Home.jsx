@@ -10,6 +10,10 @@ function Home() {
   const [uploadedImage, setUploadedImage] = useState(null);
   const [pattern, setPattern] = useState("4x15");
 
+  const [mode, setMode] = useState("default");
+  const [line1, setLine1] = useState("แทนคำขอบคุณ");
+  const [line2, setLine2] = useState("ชื่อผู้เสียชีวิต");
+
   const formatThaiDate = (dateString) => {
     if (!dateString) return "";
 
@@ -24,7 +28,6 @@ function Home() {
 
   return (
     <div className="min-h-screen bg-[#f7f4ee]">
-      {/* HEADER */}
       <header
         className="
           border-b border-[#d8c8a5]
@@ -67,7 +70,6 @@ function Home() {
         </div>
       </header>
 
-      {/* ORNAMENT */}
       <div className="px-4 sm:px-6 lg:px-8 py-4">
         <div className="max-w-[1600px] mx-auto flex items-center gap-3">
           <div className="flex-1 h-[1px] bg-[#d7c49c]" />
@@ -78,7 +80,6 @@ function Home() {
         </div>
       </div>
 
-      {/* MAIN */}
       <main className="px-4 sm:px-6 lg:px-8 pb-10">
         <div
           className="
@@ -93,9 +94,7 @@ function Home() {
             items-start
           "
         >
-          {/* LEFT PANEL */}
           <div className="space-y-6">
-            {/* STICKER INFO */}
             <div
               className="
                 bg-white
@@ -116,23 +115,57 @@ function Home() {
               </div>
 
               <div className="space-y-4">
-                <TextEditor
-                  label="ชื่อ"
-                  value={name}
-                  onChange={setName}
-                  placeholder="ชื่อผู้เสียชีวิต"
-                />
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { label: "แบบปกติ", value: "default" },
+                    { label: "แบบสองบรรทัด", value: "twoLine" },
+                  ].map((item) => (
+                    <button
+                      key={item.value}
+                      onClick={() => setMode(item.value)}
+                      className={`rounded-xl border px-4 py-3 text-sm font-medium transition ${
+                        mode === item.value
+                          ? "bg-[#c9a84c] text-white border-[#c9a84c]"
+                          : "bg-white text-[#5e513d] border-[#dccfb6] hover:bg-[#f8f3e8]"
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
 
-                <TextEditor
-                  label="วันที่"
-                  type="date"
-                  value={date}
-                  onChange={setDate}
-                />
+                {mode === "default" ? (
+                  <>
+                    <TextEditor
+                      label="ชื่อ"
+                      value={name}
+                      onChange={setName}
+                      placeholder="ชื่อผู้เสียชีวิต"
+                    />
+                    <TextEditor
+                      label="วันที่"
+                      type="date"
+                      value={date}
+                      onChange={setDate}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <TextEditor
+                      label="บรรทัดบน"
+                      value={line1}
+                      onChange={setLine1}
+                    />
+                    <TextEditor
+                      label="บรรทัดล่าง"
+                      value={line2}
+                      onChange={setLine2}
+                    />
+                  </>
+                )}
               </div>
             </div>
 
-            {/* TOOLBAR */}
             <div
               className="
                 bg-white
@@ -152,7 +185,6 @@ function Home() {
                 </p>
               </div>
 
-              {/* PATTERN */}
               <div>
                 <h3 className="text-sm font-semibold text-[#3f3424] mb-3">
                   รูปแบบการจัดเรียง
@@ -193,7 +225,6 @@ function Home() {
             </div>
           </div>
 
-          {/* RIGHT PREVIEW */}
           <div
             className="
               bg-white
@@ -230,6 +261,9 @@ function Home() {
                   date={formatThaiDate(date)}
                   uploadedImage={uploadedImage}
                   pattern={pattern}
+                  mode={mode}
+                  line1={line1}
+                  line2={line2}
                 />
               </div>
             </div>
